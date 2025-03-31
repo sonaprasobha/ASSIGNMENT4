@@ -1,0 +1,32 @@
+/*
+  Name: sona bijumon prasobha
+  File: story.css
+  Date: 25-03-2025
+  Description: Styling for Story Generator
+*/
+
+body {
+    font-family: helvetica, sans-serif;
+    width: 350px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  div {
+    padding-bottom: 20px;
+  }
+  
+  input[type="text"] {
+    padding: 5px;
+    width: 150px;
+  }
+  
+  p.story {
+    background: #d4c59f;
+    color: #c34f24;
+    padding: 10px;
+    visibility: visible;
+  }
+  
