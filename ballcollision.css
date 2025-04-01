@@ -1,0 +1,47 @@
+/*
+  Name: Sona Bijumon Prasobha
+  File: ballcollision.css
+  Date: 28-03-2025
+  Description: Stylish CSS for Bouncing Balls animation
+*/
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    /* Smooth animated gradient background */
+    background: linear-gradient(135deg, #1d1d1d, #3c3c3c);
+    animation: gradientMove 10s ease infinite;
+    background-size: 400% 400%;
+  }
+  
+  /* Canvas stretches to fill the window */
+  canvas {
+    display: block;
+  }
+  
+  /* Title styling */
+  h1 {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    margin: 0;
+    font-size: 2.5rem;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px #00ffe7, 0 0 20px #00b3ff, 0 0 30px #008cff;
+    z-index: 10;
+  }
+  
+  /* Background animation */
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
