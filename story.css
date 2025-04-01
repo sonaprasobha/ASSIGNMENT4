@@ -8,10 +8,14 @@
 body {
     font-family: helvetica, sans-serif;
     width: 350px;
+    margin: 40px;
+    background-color: beige;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
   label {
     font-weight: bold;
+    margin-bottom: 5px; 
   }
   
   div {
@@ -21,6 +25,7 @@ body {
   input[type="text"] {
     padding: 5px;
     width: 150px;
+    border-radius: 4px;
   }
   
   p.story {
