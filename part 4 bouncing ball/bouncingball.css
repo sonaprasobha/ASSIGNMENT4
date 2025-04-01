@@ -1,0 +1,38 @@
+/*
+  Name: Sona Bijumon Prasobha
+  File: bouncingball.css
+  Date: 30-03-2025
+  Description: Styling for Bouncing Balls Game
+*/
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(#222, #000);
+    color: #fff;
+  }
+  
+  canvas {
+    display: block;
+  }
+  
+  h1 {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 2rem;
+    text-shadow: 0 0 10px #00ffe7;
+  }
+  
+  p {
+    position: absolute;
+    top: 45px;
+    left: 20px;
+    margin: 0;
+    font-size: 1rem;
+    color: #aaa;
+  }
+  
