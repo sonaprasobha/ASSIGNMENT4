@@ -11,16 +11,15 @@ const ctx = canvas.getContext("2d");
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
 
-// Utility Functions
+// Random number and color functions
 function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-
 function randomRGB() {
-  return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+  return "rgb(" + random(0,255) + "," + random(0,255) + "," + random(0,255) + ")";
 }
 
-// Shape Class
+// Shape class
 class Shape {
   constructor(x, y, velX, velY) {
     this.x = x;
@@ -30,7 +29,7 @@ class Shape {
   }
 }
 
-// Ball Class
+// Ball class inherits Shape
 class Ball extends Shape {
   constructor(x, y, velX, velY, color, size) {
     super(x, y, velX, velY);
@@ -43,7 +42,7 @@ class Ball extends Shape {
     if (!this.exists) return;
     ctx.beginPath();
     ctx.fillStyle = this.color;
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.fill();
   }
 
@@ -60,8 +59,8 @@ class Ball extends Shape {
       if (this !== other && other.exists) {
         const dx = this.x - other.x;
         const dy = this.y - other.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < this.size + other.size) {
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < this.size + other.size) {
           this.color = other.color = randomRGB();
         }
       }
@@ -69,20 +68,18 @@ class Ball extends Shape {
   }
 }
 
-// EvilCircle Class
+// EvilCircle class inherits Shape
 class EvilCircle extends Shape {
   constructor(x, y) {
     super(x, y, 20, 20);
+    this.size = 15;
     this.color = 'white';
-    this.size = 10;
 
-    window.addEventListener("keydown", (e) => {
-      switch (e.key) {
-        case 'a': this.x -= this.velX; break;
-        case 'd': this.x += this.velX; break;
-        case 'w': this.y -= this.velY; break;
-        case 's': this.y += this.velY; break;
-      }
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'a') this.x -= this.velX;
+      if (e.key === 'd') this.x += this.velX;
+      if (e.key === 'w') this.y -= this.velY;
+      if (e.key === 's') this.y += this.velY;
     });
   }
 
@@ -90,15 +87,15 @@ class EvilCircle extends Shape {
     ctx.beginPath();
     ctx.lineWidth = 3;
     ctx.strokeStyle = this.color;
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.stroke();
   }
 
   checkBounds() {
-    if (this.x + this.size > width) this.x = width - this.size;
     if (this.x - this.size < 0) this.x = this.size;
-    if (this.y + this.size > height) this.y = height - this.size;
+    if (this.x + this.size > width) this.x = width - this.size;
     if (this.y - this.size < 0) this.y = this.size;
+    if (this.y + this.size > height) this.y = height - this.size;
   }
 
   collisionDetect() {
@@ -106,24 +103,23 @@ class EvilCircle extends Shape {
       if (ball.exists) {
         const dx = this.x - ball.x;
         const dy = this.y - ball.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < this.size + ball.size) {
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < this.size + ball.size) {
           ball.exists = false;
           count--;
-          counter.textContent = 'Ball count: ' + count;
+          para.textContent = "Ball count: " + count;
         }
       }
     }
   }
 }
 
-// Ball Array + Counter
+// Ball setup
 const balls = [];
-const maxBalls = 25;
 let count = 0;
-const counter = document.querySelector('p');
+const para = document.querySelector("p");
 
-while (balls.length < maxBalls) {
+while (balls.length < 25) {
   const size = random(10, 20);
   const ball = new Ball(
     random(size, width - size),
@@ -136,15 +132,14 @@ while (balls.length < maxBalls) {
   balls.push(ball);
   count++;
 }
+para.textContent = "Ball count: " + count;
 
-counter.textContent = 'Ball count: ' + count;
+// EvilCircle object
+const evil = new EvilCircle(random(0, width), random(0, height));
 
-// EvilCircle Instance
-const evil = new EvilCircle(random(50, width - 50), random(50, height - 50));
-
-// Animation Loop
+// Main loop
 function loop() {
-  ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+  ctx.fillStyle = "rgba(0,0,0,0.25)";
   ctx.fillRect(0, 0, width, height);
 
   for (const ball of balls) {
