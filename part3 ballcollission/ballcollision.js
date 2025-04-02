@@ -50,7 +50,7 @@ Ball.prototype.update = function () {
   this.y += this.velY;
 };
 
-// 6. Ball collision detection method
+// Ball collision detection method
 Ball.prototype.collisionDetect = function () {
   for (let j = 0; j < balls.length; j++) {
     const other = balls[j];
@@ -65,7 +65,7 @@ Ball.prototype.collisionDetect = function () {
   }
 };
 
-// 7. Create 25 balls
+//Create 25 balls
 const balls = [];
 
 while (balls.length < 25) {
@@ -81,7 +81,7 @@ while (balls.length < 25) {
   balls.push(ball);
 }
 
-// 8. Animation loop
+// Animation loop
 function loop() {
   ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
   ctx.fillRect(0, 0, width, height);
