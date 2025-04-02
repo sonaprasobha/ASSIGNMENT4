@@ -5,14 +5,13 @@
   Description: Ball Collision Animation using Canvas
 */
 
-// 1. Canvas Setup
-var canvas = document.querySelector("canvas");
-var ctx = canvas.getContext("2d");
+// setupping the canvas 
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+const width = canvas.width = window.innerWidth;
+const height = canvas.height = window.innerHeight;
 
-var width = canvas.width = window.innerWidth;
-var height = canvas.height = window.innerHeight;
-
-// 2. Utility Functions
+// adding Random numbers and color functions
 function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
@@ -21,7 +20,7 @@ function randomColor() {
   return "rgb(" + random(0, 255) + "," + random(0, 255) + "," + random(0, 255) + ")";
 }
 
-// 3. Ball Class
+// construction of balls
 function Ball(x, y, velX, velY, color, size) {
   this.x = x;
   this.y = y;
@@ -31,6 +30,7 @@ function Ball(x, y, velX, velY, color, size) {
   this.size = size;
 }
 
+// 4. Ball draw method
 Ball.prototype.draw = function () {
   ctx.beginPath();
   ctx.fillStyle = this.color;
@@ -38,25 +38,26 @@ Ball.prototype.draw = function () {
   ctx.fill();
 };
 
+// updating the balls
 Ball.prototype.update = function () {
-  if ((this.x + this.size) >= width || (this.x - this.size) <= 0) {
+  if (this.x + this.size > width || this.x - this.size < 0) {
     this.velX = -this.velX;
   }
-  if ((this.y + this.size) >= height || (this.y - this.size) <= 0) {
+  if (this.y + this.size > height || this.y - this.size < 0) {
     this.velY = -this.velY;
   }
   this.x += this.velX;
   this.y += this.velY;
 };
 
+// 6. Ball collision detection method
 Ball.prototype.collisionDetect = function () {
-  for (var j = 0; j < balls.length; j++) {
-    var other = balls[j];
+  for (let j = 0; j < balls.length; j++) {
+    const other = balls[j];
     if (this !== other) {
-      var dx = this.x - other.x;
-      var dy = this.y - other.y;
-      var distance = Math.sqrt(dx * dx + dy * dy);
-
+      const dx = this.x - other.x;
+      const dy = this.y - other.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
       if (distance < this.size + other.size) {
         this.color = other.color = randomColor();
       }
@@ -64,12 +65,12 @@ Ball.prototype.collisionDetect = function () {
   }
 };
 
-// 4. Create 25 Balls
-var balls = [];
+// 7. Create 25 balls
+const balls = [];
 
 while (balls.length < 25) {
-  var size = random(10, 20);
-  var ball = new Ball(
+  const size = random(10, 20);
+  const ball = new Ball(
     random(size, width - size),
     random(size, height - size),
     random(-5, 5),
@@ -80,12 +81,12 @@ while (balls.length < 25) {
   balls.push(ball);
 }
 
-// 5. Animation Loop
+// 8. Animation loop
 function loop() {
   ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
   ctx.fillRect(0, 0, width, height);
 
-  for (var i = 0; i < balls.length; i++) {
+  for (let i = 0; i < balls.length; i++) {
     balls[i].draw();
     balls[i].update();
     balls[i].collisionDetect();
@@ -94,4 +95,5 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
-loop(); // Start the animation
+loop();
+
